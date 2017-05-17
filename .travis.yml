@@ -1,35 +1,24 @@
 language: cpp
-
 sudo: false
-
 matrix:
   include:
-    # Special target for deploying documentation to gh-pages
-    - os: linux
-      compiler: gcc
-      env:
-        - COMPILER=g++-6
-        - UNSECURED_VAR=
-
-      # Contains GITHUB_TOKEN, for authorization to push to gh-pages
-      # To regenerate, instructions at http://stackoverflow.com/a/12778315/2689797
-
-
-      script: ./print_vars.sh
-
-      deploy:
-        provider: pages
-        skip_cleanup: true
-        github_token: $GITHUB_TOKEN
-        local_dir: docs
-        script: ./print_vars.sh && mkdir docs
-        on:
-          branch: master
-
-
-
+  - os: linux
+    compiler: gcc
+    env:
+    - COMPILER=g++-6
+    - UNSECURED_VAR=qwerqwer
+    script: "./print_vars.sh"
+    deploy:
+      provider: pages
+      skip_cleanup: true
+      github_token: "$GITHUB_TOKEN"
+      local_dir: docs
+      script: "./print_vars.sh && mkdir docs"
+      on:
+        branch: master
 script:
-- $COMPILER --version
+- "$COMPILER --version"
 - CXX=$COMPILER scons VERBOSE=1 && bin/entendre_tests
-
-secure: "Katai+Y32yTtlab+2XnwzC+0NO/0xeRU8h4aajsF4LwJZNF/liUap/K0sPBEiPA+N5mbmC+ZKlkanbyWp5cR7cbeBq+dBixkN/+tmNPDq/BqwcoUNznKrs6hlkk6LKb9VllNA78+U021/djcQ+4RVx4AhKjTApiCD1xK/fU7WjbARTD/kPpjk8Hrvuj1ksjSPNVD6ECbZPhkwDv54/JuMqltziIxwggtBt+qUnTKlIlXkeZLKE9WCJJDHrA3M3ATSL8AEHrTcEoGhpdV9L3b2c/jSy6wbkBwjD9aZEEPSJO6QRdd34y14iUd+Op/B3g6FBTionr/2mFkoYkpXhVzL/OvDAyNv/PvtcS7WFy/KBYBt/6QM2wYbw6jImoNsx4Hpv6PLLofgFenpdBcTBjb6a4CB1lAz0mTEjZk6UfotDaKqT0aqRfgCl+sJOm5vhIsnfE3Dpu+/GfUCBKNdW8vcSlHCFwsLuHTAoThvZxC99JGdISbAIOm/Pn3ZvRsP6vHKb3TeZcAq3K4hyw+iMXlcv2oIUtCantjycnK5Oyk99yDJAnnByKfAwugmsfv++0Xp16jpWI5/lkqLPXEGRxXU1IhccHz+hMez/abMDWFqROUaFB5gJsmdKUQqocvwn8pKmTQGM5O1SYiNhLoPQniTKNlOI/Mc1KqIe2niPebJk0="
+env:
+  global:
+    secure: ezdzILQ3HaHpOhnQucVeunBcKEFJL3zB8CJ/osdedNPRMJa/zgXpMGyyoP88qSHoaK1ePSQvnGGE5yjV3t56wlp/VniynRc2HZECWfE8SmtHmCwhe+u1Slp+in7DPj8VNWgGWITw3eMPL/RBmCld71FpDUXd1BKyV3Nv+8iykLvqHb7BtRWWDv+dWR4FASgacLj4K6BwpKTnScNn1dTvKBlIFHSIJ7s92Ec18INkvHD1VDIVisnvcz1wFbvBktFnW9kDmFYKucmYqL6Kqaoqkt0p1xJBYgDtGDgI3rFvDgGSYvwk1vJSlaXLdmAP8S6erOQ+z8ATSOXA9uxqrgej3gxhUoKndAbWJu1V3zsK6aPKGkBAKozyUhLLWOdf7Ukpbyq67zZk+fzbsa/Q6LLTdkWh2JDHdgF9WVjokJqZXhoUZeAOWgzIK3Dfm1i0IG5d3Br7kP59UTW6QTYK8c9of3mqtM2a5e4Vcc7L5EwH6AE7QAu/YNuuK6J7y1xRa1FzeoOh2Lah9A6TS1tV7hMXjjQ5q/W0y3GXA1lEXe2wXioKoQVj6mR2KGTHM55MtQ30W8PKkosxdQSKd3KECv1Fh6UDLc63lH08DcH/ozw3wX4t3qdj2mT/NLlc4wfvDki28Q36A00DXvowc4yZ4YmWPxJAnd8q4g5PQU3MiBc7qXs=
