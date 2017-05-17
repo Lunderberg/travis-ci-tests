@@ -1,0 +1,33 @@
+language: cpp
+
+sudo: false
+
+matrix:
+  include:
+    # Special target for deploying documentation to gh-pages
+    - os: linux
+      compiler: gcc
+      env:
+        - COMPILER=g++-6
+        - UNSECURED_VAR=
+
+      # Contains GITHUB_TOKEN, for authorization to push to gh-pages
+      # To regenerate, instructions at http://stackoverflow.com/a/12778315/2689797
+      secure: "Katai+Y32yTtlab+2XnwzC+0NO/0xeRU8h4aajsF4LwJZNF/liUap/K0sPBEiPA+N5mbmC+ZKlkanbyWp5cR7cbeBq+dBixkN/+tmNPDq/BqwcoUNznKrs6hlkk6LKb9VllNA78+U021/djcQ+4RVx4AhKjTApiCD1xK/fU7WjbARTD/kPpjk8Hrvuj1ksjSPNVD6ECbZPhkwDv54/JuMqltziIxwggtBt+qUnTKlIlXkeZLKE9WCJJDHrA3M3ATSL8AEHrTcEoGhpdV9L3b2c/jSy6wbkBwjD9aZEEPSJO6QRdd34y14iUd+Op/B3g6FBTionr/2mFkoYkpXhVzL/OvDAyNv/PvtcS7WFy/KBYBt/6QM2wYbw6jImoNsx4Hpv6PLLofgFenpdBcTBjb6a4CB1lAz0mTEjZk6UfotDaKqT0aqRfgCl+sJOm5vhIsnfE3Dpu+/GfUCBKNdW8vcSlHCFwsLuHTAoThvZxC99JGdISbAIOm/Pn3ZvRsP6vHKb3TeZcAq3K4hyw+iMXlcv2oIUtCantjycnK5Oyk99yDJAnnByKfAwugmsfv++0Xp16jpWI5/lkqLPXEGRxXU1IhccHz+hMez/abMDWFqROUaFB5gJsmdKUQqocvwn8pKmTQGM5O1SYiNhLoPQniTKNlOI/Mc1KqIe2niPebJk0="
+
+      script: print_vars.sh
+
+      deploy:
+        provider: pages
+        skip_cleanup: true
+        github_token: $GITHUB_TOKEN
+        local_dir: docs
+        script: print_vars.sh && mkdir docs
+        on:
+          branch: master
+
+
+
+script:
+- $COMPILER --version
+- CXX=$COMPILER scons VERBOSE=1 && bin/entendre_tests
